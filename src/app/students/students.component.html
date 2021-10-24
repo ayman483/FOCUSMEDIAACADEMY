@@ -1,0 +1,136 @@
+<div>
+    <table mdbTable>
+        <thead>
+            <tr>
+                <th *ngFor="let head of displayedColumns" scope="col">{{head}} </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let el of students_list">
+                <th scope="row">{{el.id}}</th>
+                <th scope="row">{{el.first_name}}</th>
+                <td>{{el.last_name}}</td>
+                <td>{{el.date_of_birth}}</td>
+                <td><button mdbBtn type="button" color="primary" data-toggle="modal" data-target="#basicExample"
+                        (click)="[frame_update.show(),passtoupdate(el)]" mdbWavesEffect>Update</button>
+                    <button mdbBtn type="button" color="danger" data-toggle="modal" data-target="#basicExample"
+                        (click)="[frame_delete.show(),passtodelete(el.id)]" mdbWavesEffect>Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<button type="button" mdbBtn color="primary" class="waves-light" data-toggle="modal" data-target="#basicExample"
+    (click)="frame_add.show()" mdbWavesEffect>Add Student</button>
+
+<div mdbModal #frame_add="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Add Student</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                (click)="frame_add.hide()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="md-form">
+                            <input type="text" id="orangeForm-first_name" #first_name class="form-control">
+                            <label for="orangeForm-first_name">First Name</label>
+                        </div>
+                        <div class="md-form">
+                            <input type="text" #last_name id="orangeForm-last_name" class="form-control">
+                            <label for="orangeForm-last_name">Last Name</label>
+                        </div>
+                        <p>Simple datepicker</p>
+                        <ngb-datepicker #dop [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <button type="button" mdbBtn color="secondary" class="waves-light" mdbWavesEffect
+                                    (click)="frame_add.hide()" data-dismiss="modal">Cancel</button>
+                                <button mdbBtn color="primary"
+                                    (click)="[add_students(model,last_name.value,first_name.value),frame_add.hide()]"
+                                    class="waves-light" mdbWavesEffect>Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #frame_update="mdbModal" class="modal fade" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Update Student</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                (click)="frame_update.hide()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+
+                        <div class="md-form">
+                            <input type="text" [(ngModel)]="u_first_name" class="form-control">
+                            <label for="orangeForm-first_name">First Name</label>
+                        </div>
+                        <div class="md-form">
+                            <input type="text" [(ngModel)]="u_last_name" id="orangeForm-last_name" class="form-control">
+                            <label for="orangeForm-last_name">Last Name</label>
+                        </div>
+                        <p>Simple datepicker</p>
+                        <ngb-datepicker #u_date_of_birth [(ngModel)]="model" (navigate)="date = $event.next">
+                        </ngb-datepicker>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <button type="button" mdbBtn color="secondary" class="waves-light" mdbWavesEffect
+                                    (click)="frame_update.hide()" data-dismiss="modal">Cancel</button>
+                                <button mdbBtn color="primary"
+                                    (click)="[Update_students(u_date_of_birth,u_last_name,u_first_name),frame_update.hide()]"
+                                    class="waves-light" mdbWavesEffect>Update</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mdbModal #frame_delete="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+            <!--Header-->
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Are you sure?</p>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <mdb-icon fas icon="times" size="4x" class="animated rotateIn"></mdb-icon>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <button type="button" mdbBtn color="secondary" class="waves-light" mdbWavesEffect
+                    (click)="frame_delete.hide()" data-dismiss="modal">No</button>
+                <button mdbBtn color="primary"
+                    (click)="[delete_student(),frame_delete.hide()]"
+                    class="waves-light" mdbWavesEffect>Yes</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>

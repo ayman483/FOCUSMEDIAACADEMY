@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'focueacademy'`, () => {
+  it(`should have as title 'faceacademy'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('focueacademy');
+    expect(app.title).toEqual('faceacademy');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('focueacademy app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('faceacademy app is running!');
   });
 });
